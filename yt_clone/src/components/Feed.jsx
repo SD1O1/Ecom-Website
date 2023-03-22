@@ -31,7 +31,7 @@ const Feed = () => {
       Copyright 2023 WeTube Media
      </Typography>
      </Box>
-     <Box p={2} sx={{overflowY:'scroll' , height:'90vh' , flex:2}}>
+     <Box p={2} sx={{overflowY:'auto' , height:'90vh' , flex:2}}>
       <Typography variant="h4" frontweight='bold' mb={2} sx={{ color : 'white'}}>
         {selectedCategory} <span style={{color:'red'}}>
           videos

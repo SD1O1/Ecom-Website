@@ -2,9 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Box } from '@mui/system'
-import { VideoCard, ChannelCard, Videos } from './'
+import {  ChannelCard, Videos } from './'
 import { fetchFromAPI } from '../utils/fetchFromAPI'
-import zIndex from '@mui/material/styles/zIndex'
 
 const ChannelDetail = () => {
   const [channelDetail,setChannelDetail]=useState(null)
