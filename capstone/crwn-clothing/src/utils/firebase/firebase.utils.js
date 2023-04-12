@@ -9,7 +9,7 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
-import{getFirestore, doc,getDoc,setDoc,collection,writeBatch,query,getDocs} from 'firebase/firestore'
+import{getFirestore, doc,getDoc,setDoc,collection,writeBatch,query,getDocs, DocumentSnapshot} from 'firebase/firestore'
 
 
 const firebaseConfig = {
@@ -54,12 +54,13 @@ export const getCategoriesAndDocuments=async()=>{
   const q=query(collectionRef);
 
   const querySnapshot=await getDocs(q);
-  const categoryMap=querySnapshot.docs.reduce((acc, docSnapshot)=>{
-    const {title,items}=docSnapshot.data();
-    acc[title.toLowerCase()]=items;
-    return acc;
-  },{});
-  return categoryMap;
+  return querySnapshot.docs.map(docSnapshot=> docSnapshot.data());
+  // .reduce((acc, docSnapshot)=>{
+  //   const {title,items}=docSnapshot.data();
+  //   acc[title.toLowerCase()]=items;
+  //   return acc;
+  // },{});
+  // return categoryMap;
 };
 
 export const createUserDocumentFromAuth=async(userAuth,additionalInformation={})=>{

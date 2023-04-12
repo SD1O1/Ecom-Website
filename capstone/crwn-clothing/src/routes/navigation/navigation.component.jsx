@@ -8,10 +8,9 @@ import { ReactComponent as CrwnLogo} from "../../assets/crown.svg";
 
 import './navigation.styles.scss';
 
-import {UserContext} from '../../contexts/user.context';
-import { CartContext } from "../../contexts/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { selectCurrentUser } from '../../store/user/user.selector'
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 const Navigation=()=>{
 
@@ -19,7 +18,8 @@ const Navigation=()=>{
 
   const currentUser=useSelector(selectCurrentUser);
 
-  const {isCartOpen} =useContext(CartContext);
+  //const {isCartOpen} =useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
     return (
       <Fragment>{/*does not render*/}
        <div className="navigation">
