@@ -24,18 +24,19 @@ const firebaseConfig = {
   // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);///we do stuff with this instance 
 
-const googleprovider = new GoogleAuthProvider();//can be multiple
-  googleprovider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();//can be multiple
+  googleProvider.setCustomParameters({
     prompt:"select_account"
   });
 
 export const auth =getAuth();//only one for web
-export const signInWithGooglePopup=()=>signInWithPopup(auth,googleprovider);
-export const signInWithGoogleRedirect =()=>signInWithRedirect(auth,googleprovider);
+export const signInWithGooglePopup=()=>signInWithPopup(auth,googleProvider);
+export const signInWithGoogleRedirect =()=>signInWithRedirect(auth,googleProvider);
 
 export const db=getFirestore();
 
-export const addCollectionAndDocuments=async(collectionKey, objectsToAdd)=>{
+export const addCollectionAndDocuments=async(collectionKey, objectsToAdd,field)=>{
+
   const collectionRef =collection(db,collectionKey);
   const batch = writeBatch(db);
   
@@ -63,14 +64,15 @@ export const getCategoriesAndDocuments=async()=>{
 
 export const createUserDocumentFromAuth=async(userAuth,additionalInformation={})=>{
 
-  if(!userAuth)return ;
-    const userDocRef=doc(db,'users',userAuth.uid);
+  if(!userAuth)return;
+
+  const userDocRef=doc(db,'users',userAuth.uid);
     //console.log(userDocRef);
-    const userSnapShot=await getDoc(userDocRef);
+  const userSnapShot=await getDoc(userDocRef);
     //console.log(userSnapShot);
     //console.log(userSnapShot.exists());
 
-    if(!userSnapShot.exists()){
+  if(!userSnapShot.exists()){
         const {displayName,email}=userAuth;
         const createdAt=new Date();
 
@@ -97,4 +99,4 @@ export const signInAuthUserWithEmailAndPassword=async(email,password)=>{
 
 export const signOutUser=async()=> await signOut(auth);
 
-export const onAuthStateChangedListener=(callback)=>onAuthStateChanged(auth,callback)
+export const onAuthStateChangedListener=(callback)=>onAuthStateChanged(auth,callback);
