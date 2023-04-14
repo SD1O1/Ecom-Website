@@ -7,10 +7,14 @@
 
     .form-container{
         height: 100px;
-        min-width: 500px;
+        min-width: 80vw;
     }
     .button-container {
         margin-left: auto;
         margin-top: 30px;
     }
+    @media screen and (max-width: 400px){
+        font-size: 15px;
+        margin-top: 0px;
+      }
 }
