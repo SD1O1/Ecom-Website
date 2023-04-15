@@ -1,12 +1,13 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 import Button from '../button/button-component';
 import './payment-form.styles.scss';
 
 import { selectCartTotal } from '../../store/cart/cart.selector';
 import {selectCurrentUser} from '../../store/user/user.selector';
+import { clearCart } from '../../store/cart/cart.action';
 
 const PaymentForm =()=>{
     const stripe = useStripe();
@@ -17,6 +18,7 @@ const PaymentForm =()=>{
 
     const [isProcessingPayment, setIsProcessingPayment]=useState(false);
 
+    const dispatch=useDispatch();
     const paymentHandler=async(e)=>{
         e.preventDefault();
 
@@ -53,6 +55,7 @@ const PaymentForm =()=>{
         }else{
             if(paymentResult.paymentIntent.status==='succeeded'){
                 alert('Payment Successful');
+                dispatch(clearCart());
             }
         }
     };
